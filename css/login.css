@@ -1,0 +1,220 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
+@import url(http://fonts.googleapis.com/css?family=Raleway:300,400);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300italic,300);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+
+.dark-primary-color    { background: #0288D1; } /*dark blue*/ 
+.default-primary-color { background: #03A9F4; } /*lighter blue*/
+.light-primary-color   { background: #B3E5FC; }
+.text-primary-color    { color: #FFFFFF; }
+
+.accent-color          { background: #FF5722; } /* orange color */
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+.divider-color         { border-color: #BDBDBD; }
+
+body {
+  font-family: Lato, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 100px;
+  font-weight: 300;
+  background-color: #E9EAEE; }
+
+h1, h2, h3, h4 {
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif; }
+
+h2 {
+  padding-left: 2em;
+  margin-bottom: 1em;
+}
+svg {
+  height: 1em; }
+
+.rounded-edges {
+  border-radius: 5px; }
+
+nav {
+  background-color: #0288D1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  font-size: 16px;
+  z-index: 1; }
+  
+  div.topBar {
+    padding-left: 15px;
+    margin-bottom: 0; 
+    background-color: #0288D1 ;}
+
+
+  nav a {
+    display: block;
+    width: 40px;
+ }
+  
+div.logoSide {
+  padding-left: 3em;
+  float:left;
+  background-color: #0288D1;
+  width: 25%;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+div.compName {
+  float:left;
+  padding-top: 2.5em;
+  padding-bottom: .5em;
+  color: white;
+}
+
+div.loginSide {
+  float: right;
+  background-color: #0288D1;
+  padding-right:6em;
+}
+
+div.loginSide h3 {
+  color: white;
+  font-size: 14pt;
+}
+
+div.username {
+  float: left;
+}
+
+div.password {
+  float: left;
+  padding-left: 3em;
+  padding-right: 1em;
+}
+
+div.submit {
+  float: left;
+  padding-top:4.5em;
+}
+
+div.submit input {
+  background-color: #FF5722;
+  color: white;
+}
+
+div.leftContent {
+  padding-top: 9em;
+  width: 50%;
+  padding-left: 3em;
+  float: left;
+  margin-bottom: 3em;
+}
+
+div.rightContent {
+  float: left;
+  padding-top: 9em;
+  width: 50%;
+  padding-right: 3em;
+  margin-bottom: 2em;
+}
+
+div.first {
+  padding-left: 3em;
+}
+
+div.last {
+  padding-top: .5em;
+  padding-left: 3em;
+}
+
+div.email {
+  padding-left: 3em;
+  padding-top: .5em;
+}
+
+div.email input {
+  width: 100%;
+}
+
+div.regPassword {
+  padding-left: 3em;
+  padding-top: .5em;
+}
+
+div.age {
+  padding-left: 3em;
+  padding-top: 0.5em;
+}
+
+div.age input {
+  width: 15%
+}
+
+div.gender {
+  padding-left: 3em;
+  padding-top: 0.5em;
+}
+
+input[value="male"] {
+  margin-left: 1em;
+}
+
+div.signUpButtons {
+  padding-left: 4em;
+  padding-top: 1em;
+  padding-bottom: 3em;
+
+}
+
+button.signupbtn {
+  background-color: #03A9F4;
+  color: white;
+}
+
+button.guestbtn {
+  background-color: #00FF7F;
+  color: white;
+  margin-left: 1em;
+}
+
+div.secondContent {
+  padding-top: 1em;
+
+}
+
+div.thirdContent {
+  padding-top: 1em;
+
+}
+
+div.videoContent {
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+
+footer {
+  width :100%;
+  bottom: 0;
+  clear: both;
+  padding-top: 1em;
+  font-size: 14px;
+  background-color: #afb3c2; }
+
+
+
+
+@media (min-width: 768px) {
+  body {
+    font-size: 20px; }
+ 
+    nav li {
+      padding-left: 1em;
+      padding-right: 1em; }
+  
+  footer .row > div:last-of-type {
+    text-align: right; } }
+
+@media (min-width: 992px) {
+  
+  }
+
+@media (min-width: 1200px) {
+  }

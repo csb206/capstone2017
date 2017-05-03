@@ -1,0 +1,81 @@
+@import url(https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css);
+@import url(http://fonts.googleapis.com/css?family=Raleway:300,400);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300italic,300);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css);
+
+
+.dark-primary-color    { background: #0288D1; } /*dark blue*/ 
+.default-primary-color { background: #03A9F4; } /*lighter blue*/
+.light-primary-color   { background: #B3E5FC; }
+.text-primary-color    { color: #FFFFFF; }
+
+.accent-color          { background: #FF5722; } /* orange color */
+.primary-text-color    { color: #212121; }
+.secondary-text-color  { color: #757575; }
+.divider-color         { border-color: #BDBDBD; }
+
+body {
+  font-family: Lato, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 100px;
+  font-weight: 300;
+  background-color: #E9EAEE; }
+
+h1, h2, h3, h4 {
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif; }
+
+h2 {
+  color: #BC6026;
+  fill: #BC6026; }
+
+.top {
+    position: absolute;
+    left:200px; 
+    right:0;
+    height: 100px;
+    background-color: #03A9F4;
+}
+
+.sidenav a {
+  color: white;
+  font-size: 16pt;
+
+}
+.left {
+    position:relative;
+    left:0; top:0; bottom: 0;
+    width: 200px;
+    background-color: #0288D1;
+    z-index: 1;
+
+}
+.main {
+    position: absolute;
+    left:178px; 
+    top:92px; 
+    right:0; 
+    bottom:0;
+}
+
+
+
+
+
+
+footer {
+  clear: both;
+  padding-top: 1em;
+  font-size: 12px;
+  bottom: 0;
+  width: 100%;
+  background-color: #afb3c2; }
+
+@media (min-width: 768px) {
+  
+
+@media (min-width: 992px) {
+  
+  }
+
+@media (min-width: 1200px) {
+  
+  }
