@@ -13,5 +13,5 @@ firebase.initializeApp(config);
 export const ref = firebase.database().ref();
 export const storageRef = firebase.storage().ref();
 export const firebaseAuth = firebase.auth;
-export const nutixAppId = "c7700b7d";
-export const nutixAppKey = "825374b15e5651f0f042e2f0632a3aa1";
+export const nutixAppId = "b355c2c6";
+export const nutixAppKey = "cc8e9b30e0dc707507d085240c42fa73";

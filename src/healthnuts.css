@@ -55,7 +55,7 @@ a.activeLink {
   background-color: #39B54A;
 }
 
-a:hover, a:focus, a.activeLink:hover {
+a:hover, a:focus, a.activeLink:hover, a.activeLink:focus {
   color: white;
 }
 

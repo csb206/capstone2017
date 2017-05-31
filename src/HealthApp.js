@@ -127,7 +127,7 @@ class NavLinks extends React.Component {
           <li><Link to="/getimage" activeClassName="activeLink">Upload Image</Link></li>
           <li><Link to="/history" activeClassName="activeLink">Nutrition History</Link></li>
           <li><Link to="/goals" activeClassName="activeLink">Goals &amp; Challenges</Link></li>
-          <li><Link to="/profile" activeClassName="activeLink">My Profile</Link></li>
+          <li><Link to="/home" activeClassName="activeLink">My Profile</Link></li>
         </ul>
       </nav>      
     );
@@ -148,6 +148,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
+    var numImgs = 0;
     var thisComponent = this;
     this.unregister = firebaseAuth().onAuthStateChanged(user => {
       if(user) {
@@ -161,6 +162,34 @@ class HomePage extends React.Component {
       var user = firebaseAuth().currentUser;
       if (user) {
         var photoUrls = [];
+        var photoTimes = [];
+        if (numImgs > 0) {
+          ref.child('/users/' + user.uid + "/photos").orderByChild("time").limitToLast(numImgs).once('value').then(function(snapshot) {
+            var photos = snapshot.val();
+            for (var key in photos) {
+              photoUrls.push(photos[key]['url']);
+              photoTimes.push(photos[key]['time']);
+            }
+            photoUrls = photoUrls.reverse();
+            photoTimes = photoTimes.reverse();
+            thisComponent.setState({photoUrls: photoUrls, photoTimes: photoTimes});
+          });
+        } else {
+          ref.child('/users/' + user.uid + "/photos").orderByChild("time").once('value').then(function(snapshot) {
+            var photos = snapshot.val();
+            for (var key in photos) {
+              photoUrls.push(photos[key]['url']);
+              photoTimes.push(photos[key]['time']);
+            }
+            photoUrls = photoUrls.reverse();
+            photoTimes = photoTimes.reverse();
+            thisComponent.setState({photoUrls: photoUrls, photoTimes: photoTimes});
+          });
+        }
+      }
+      /*
+      if (user) {
+        var photoUrls = [];
         ref.child('/users/' + user.uid + "/photos").once('value').then(function(snapshot) {
           var photos = snapshot.val();
           for (var key in photos) {
@@ -172,11 +201,13 @@ class HomePage extends React.Component {
       console.log("FUCK CORY");
       console.log(this.state);
       console.log(thisComponent.state);
+      */
     });
   }
 
+  /*
   //helper function that fetches the homepage data
-  fetchHomepage(searchTerm) {
+  getPieChartData(searchTerm) {
     //saves original this, so can set state of original this
     var thisComponent = this;
     //Use controller to search current weather
@@ -194,6 +225,7 @@ class HomePage extends React.Component {
         })
       });
   }
+  */
 
   render() {
 
@@ -240,6 +272,7 @@ class HomePage extends React.Component {
     var userHandle = this.state.handle;
     //console.log("Really, fuck cory");
     //console.log(userHandle);
+    console.log(this.state);
     return (
       <div>
         <div className="row">

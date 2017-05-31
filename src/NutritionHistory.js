@@ -232,7 +232,11 @@ class CurrentPhoto extends React.Component {
           <img className="img-thumbnail" src={this.state.url} alt="Current Photo" />
         </div>
         <div className="col-lg-8 col-sm-6 col-xs-6">
-          {foodRows}
+          <div className="card">
+            <div className="content">
+              {foodRows}
+            </div>
+          </div>
         </div>
       </div>
     );

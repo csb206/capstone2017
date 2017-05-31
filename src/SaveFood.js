@@ -165,11 +165,11 @@ class FoodRow extends React.Component {
           <span className="nutrientname">{this.props.item}</span>
         </div>
         <div className="col-lg-8 col-sm-7 col-xs-6">
-          <img className="nutrientinfo" src="" alt={topNutrients[0]} />
-          <img className="nutrientinfo" src="" alt={topNutrients[1]} />
-          <img className="nutrientinfo" src="" alt={topNutrients[2]} />
-          <img className="nutrientinfo" src="" alt={topNutrients[3]} />
-          <img className="nutrientinfo" src="" alt={topNutrients[4]} />
+          <img className="nutrientinfo" src={"img/" + topNutrients[0].slice(3) + ".png"} alt={topNutrients[0]} />
+          <img className="nutrientinfo" src={"img/" + topNutrients[1].slice(3) + ".png"} alt={topNutrients[1]} />
+          <img className="nutrientinfo" src={"img/" + topNutrients[2].slice(3) + ".png"} alt={topNutrients[2]} />
+          <img className="nutrientinfo" src={"img/" + topNutrients[3].slice(3) + ".png"} alt={topNutrients[3]} />
+          <img className="nutrientinfo" src={"img/" + topNutrients[4].slice(3) + ".png"} alt={topNutrients[4]} />
         </div>
       </div>
     );
