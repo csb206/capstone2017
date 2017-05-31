@@ -3,11 +3,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, hashHistory, IndexRoute} from 'react-router';
 import App, {HomePage} from './HealthApp';
-import {AboutPage, ResourcesPage} from './About';
-import ScanPage from './ScanImage'
-import LoginPage from './Login'
-import SignupPage from './Signup'
-import AdoptPage from './AdoptDog';
+import GetImagePage from './GetImage';
+import NutritionHistoryPage from './NutritionHistory.js';
+import LoginPage from './Login';
+import SignupPage from './Signup';
+import ScanPage from './ScanImage';
+import SavePage from './SaveFood';
+import GoalsPage from './GoalsChallenges';
 
 //css files
 import './healthnuts.css'; //load CSS for app
@@ -25,9 +27,11 @@ ReactDOM.render(
       <Route path="home" component={HomePage} />
       <Route path="login" component={LoginPage} />
       <Route path="signup" component={SignupPage} />
+      <Route path="getimage" component={GetImagePage} />
+      <Route path="history" component={NutritionHistoryPage} />
       <Route path="scan" component={ScanPage} />
-      <Route path="resources" component={ResourcesPage} />
-      <Route path="adopt/:dogName" component={AdoptPage} />
+      <Route path="save" component={SavePage} />
+      <Route path="goals" component={GoalsPage} />
     </Route>
   </Router>,
   document.getElementById('root')

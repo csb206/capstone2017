@@ -52,6 +52,157 @@ export function signUp(email, password, handle) {
     .catch((error) => console.log('Oops', error))
 }
 
+//A callback function for registering new users
+export function uploadPhoto(url, foodItems) {
+  /*
+  return firebaseAuth().currentUser.updateProfile(email, password)
+    .then(function(firebaseUser) {
+      //creation successful, redirect to channel page
+      //should I go to home?
+      hashHistory.push("home");
+
+      //get md5 of email for gravatar image
+      var md5Email = md5(email);
+
+      //update user profile to add display name
+      //and avatar url
+      firebaseUser.updateProfile({
+        displayName: handle,
+        photoURL: 'https://www.gravatar.com/avatar/' + md5Email
+      }); //return promise for chaining
+
+      //create new entry in the public viewable db
+      return ref.child('users/'+firebaseUser.uid)
+        .set({
+          handle: handle,
+          avatar: 'https://www.gravatar.com/avatar/' + md5Email,
+          photos: {}
+        })
+        .then(() => firebaseUser)
+    })
+    .catch((error) => console.log('Oops', error))
+    */
+    var user = firebaseAuth().currentUser;
+
+    /*
+    user.updateProfile({
+      photos: "test"
+    }).then(function() {
+      // Update successful.
+      console.log("WORKS");
+    }, function(error) {
+      console.log("error");
+      // An error happened.
+    });
+    */
+
+    var newPhotoRef = ref.child('users/'+user.uid+'/photos').push();
+    console.log(foodItems);
+    newPhotoRef.set({
+          time: Math.round((new Date()).getTime() / 1000),
+          url: url,
+          fooditems: foodItems
+        })
+        .then(() => user)
+    //hashHistory.push("save/" + newPhotoRef.key);
+}
+
+//A callback function for getting most recently uploaded photo
+export function getPhotoUrl(photoKey) {
+  /*
+  return firebaseAuth().currentUser.updateProfile(email, password)
+    .then(function(firebaseUser) {
+      //creation successful, redirect to channel page
+      //should I go to home?
+      hashHistory.push("home");
+
+      //get md5 of email for gravatar image
+      var md5Email = md5(email);
+
+      //update user profile to add display name
+      //and avatar url
+      firebaseUser.updateProfile({
+        displayName: handle,
+        photoURL: 'https://www.gravatar.com/avatar/' + md5Email
+      }); //return promise for chaining
+
+      //create new entry in the public viewable db
+      return ref.child('users/'+firebaseUser.uid)
+        .set({
+          handle: handle,
+          avatar: 'https://www.gravatar.com/avatar/' + md5Email,
+          photos: {}
+        })
+        .then(() => firebaseUser)
+    })
+    .catch((error) => console.log('Oops', error))
+    */
+    var user = firebaseAuth().currentUser;
+
+    /*
+    user.updateProfile({
+      photos: "test"
+    }).then(function() {
+      // Update successful.
+      console.log("WORKS");
+    }, function(error) {
+      console.log("error");
+      // An error happened.
+    });
+    */
+    ref.child('/users/' + user.uid + '/photos/' + photoKey).once('value').then(function(snapshot) {
+      return snapshot.val().url;
+    });
+}
+
+//A callback function for getting most recently uploaded photo
+export function getPhotoFoodItems(photoKey) {
+    var user = firebaseAuth().currentUser;
+    ref.child('/users/' + user.uid + '/photos/' + photoKey).once('value').then(function(snapshot) {
+      return snapshot.val().fooditems;
+    });
+}
+
+//A callback function for getting most recently uploaded photo
+export function getTopNNutrients(json, n) {
+  //console.log(json);
+  return ["apples", "bagels", "charlie", "delta", "echo"];
+}
+
+//A callback function for getting most recently uploaded photo
+export function getRecentPhotoUrls() {
+  /*
+  return firebaseAuth().currentUser.updateProfile(email, password)
+    .then(function(firebaseUser) {
+      //creation successful, redirect to channel page
+      //should I go to home?
+      hashHistory.push("home");
+
+      //get md5 of email for gravatar image
+      var md5Email = md5(email);
+
+      //update user profile to add display name
+      //and avatar url
+      firebaseUser.updateProfile({
+        displayName: handle,
+        photoURL: 'https://www.gravatar.com/avatar/' + md5Email
+      }); //return promise for chaining
+
+      //create new entry in the public viewable db
+      return ref.child('users/'+firebaseUser.uid)
+        .set({
+          handle: handle,
+          avatar: 'https://www.gravatar.com/avatar/' + md5Email,
+          photos: {}
+        })
+        .then(() => firebaseUser)
+    })
+    .catch((error) => console.log('Oops', error))
+    */
+    var user = firebaseAuth().currentUser;
+    var topUserPostsRef = ref.child('users/' + user.uid).orderByChild('time');
+}
+
 /*
 //post a new chirp to the database
 export function postMessage(message, channel, userId, timestamp) {

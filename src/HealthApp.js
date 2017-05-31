@@ -2,8 +2,9 @@ import React from 'react';
 import _ from 'lodash';
 import { Link, hashHistory } from 'react-router';
 import { Chart } from 'react-google-charts';
-import { firebaseAuth } from './FirebaseConstants';
+import { firebaseAuth, ref } from './FirebaseConstants';
 import { signOut } from './FirebaseAuth';
+import { RecentPhotoHistory } from './NutritionHistory.js';
 
 import SAMPLE_DOGS from './dog-data'; //load the dog data to use
 
@@ -45,10 +46,10 @@ class HealthApp extends React.Component {
         </header>
         <main className="container">
           <div className="row">
-            <div className="col-xs-3">
+            <div className="col-sm-3 col-xs-4">
               <NavLinks />
             </div>
-            <div className="col-xs-9">
+            <div className="col-sm-9 col-xs-8">
               {this.props.children}
             </div>
           </div>
@@ -123,8 +124,10 @@ class NavLinks extends React.Component {
       <nav>
         <ul className="list-unstyled">
           <li><Link to="/home" activeClassName="activeLink">Home</Link></li>
-          <li><Link to="/scan" activeClassName="activeLink">Upload Image</Link></li>
-          <li><Link to="/resources" activeClassName="activeLink">Resources</Link></li>
+          <li><Link to="/getimage" activeClassName="activeLink">Upload Image</Link></li>
+          <li><Link to="/history" activeClassName="activeLink">Nutrition History</Link></li>
+          <li><Link to="/goals" activeClassName="activeLink">Goals &amp; Challenges</Link></li>
+          <li><Link to="/profile" activeClassName="activeLink">My Profile</Link></li>
         </ul>
       </nav>      
     );
@@ -145,6 +148,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
+    var thisComponent = this;
     this.unregister = firebaseAuth().onAuthStateChanged(user => {
       if(user) {
         console.log('Auth state changed: logged in as', user.email);
@@ -152,9 +156,23 @@ class HomePage extends React.Component {
       }
       else{
         console.log('Auth state changed: logged out');
-        this.setState({userId: null, handle: null, email: null});
+        this.setState({userId: null, handle: "error", email: null});
       }
-    })
+      var user = firebaseAuth().currentUser;
+      if (user) {
+        var photoUrls = [];
+        ref.child('/users/' + user.uid + "/photos").once('value').then(function(snapshot) {
+          var photos = snapshot.val();
+          for (var key in photos) {
+            photoUrls.push(photos[key]['url']);
+          }
+          thisComponent.setState({photoUrls: photoUrls});
+        });
+      }
+      console.log("FUCK CORY");
+      console.log(this.state);
+      console.log(thisComponent.state);
+    });
   }
 
   //helper function that fetches the homepage data
@@ -195,67 +213,69 @@ class HomePage extends React.Component {
               </div>
 
     */
-
+    /*
+    <Link to="/getimage">
+              <button className="btn btn-default btn-lg text-center" onClick={(e) => this.handleClickUploadImage(e)}>
+                Upload Image
+              </button>
+            </Link>
     var imageUrls = ["https://images.blogthings.com/whatthanksgivingleftoversareyouquiz/plate-of-food.jpg",
       "http://images.all-free-download.com/images/graphiclarge/fries_and_steak_on_plate_193268.jpg",
       "http://www.clipartkid.com/images/493/plate-of-food-stock-photos-image-135843-l8bEIE-clipart.jpg",
       "http://www.clipartkid.com/images/527/scrounging-up-ideas-for-thanksgiving-dinner-check-out-these-soul-food-UaFQVC-clipart.jpg"
     ];
-
-    var imageCards = imageUrls.map((url) => { //arrow function!
-      return <ImageCard url={url} key={url} />;
-    })
-
+    var imageCards;
+    if (this.state.photoUrls) {
+      console.log("PHOTO URLS:");
+      console.log(this.state.photoUrls);
+      imageCards = this.state.photoUrls.map((photo) => { //arrow function!
+        return <ImageCard url={photo} key={photo} />;
+      })
+    } else {
+      imageCards = imageUrls.map((photo) => { //arrow function!
+        return <ImageCard url={photo} key={photo} />;
+      })
+    }
+    */
+    var userHandle = this.state.handle;
+    //console.log("Really, fuck cory");
+    //console.log(userHandle);
     return (
       <div>
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-6">
-              <div className="container">
-                <div className="row">
-                  <div className="col-xs-6">
-                    <img id="profilepicture" src="http://www.hexatar.com/gallery/thumb/20151029_m5631acd00bba4.png" />
-                  </div>
-                  <div className="col-xs-6">
-                    <p>{this.state.handle}</p>
-                    <p>{this.state.email}</p>
-                    <p><a>Edit Profile</a></p>
-                  </div>
+        <div className="row">
+          <div className="col-sm-6 col-xs-12">
+              <div className="row">
+                <div className="col-sm-4 col-xs-4">
+                  <img id="profilepicture" src="http://www.hexatar.com/gallery/thumb/20151029_m5631acd00bba4.png" />
+                </div>
+                <div className="col-sm-8 col-xs-8">
+                  <p>{userHandle}</p>
+                  <p>{this.state.email}</p>
+                  <p><a>My Profile</a></p>
                 </div>
               </div>
-            </div>
-            <div className="col-xs-6">
-              <div id="chartdiv">
-                <Chart
-                  chartType="PieChart" 
-                  data={[
-                    ['Nutrient Type', 'Percentage'],
-                    ['Carbs',    40],
-                    ['Fats',     30],
-                    ['Proteins', 30],
-                  ]}
-                  options={{}}
-                  graph_id="ScatterChart"
-                  width="100%"
-                  height="150px"
-                  legend_toggle   
-                />
+              <div className="row">
+                <div id="chartdiv">
+                  <Chart
+                    chartType="PieChart" 
+                    data={[
+                      ['Nutrient Type', 'Percentage'],
+                      ['Carbs',    40],
+                      ['Fats',     30],
+                      ['Proteins', 30],
+                    ]}
+                    options={{}}
+                    graph_id="ScatterChart"
+                    width="100%"
+                    height="150px"
+                    legend_toggle   
+                  />
+                </div>
               </div>
-            </div>
           </div>
-          <div className="row">
-            <div className="col-sm-12 text-center">
-              <Link to="/scan">
-                <button className="btn btn-default btn-lg text-center" onClick={(e) => this.handleClickUploadImage(e)}>
-                  Upload Image
-                </button>
-              </Link>
-            </div>
-          </div>
-          <div className="row">
-            <div className="cards-container">
-              {imageCards}
-            </div>
+          <div className="col-sm-6 col-xs-12">
+            <h4 className="text-center">Recent</h4>
+            <RecentPhotoHistory numimgs={6} />
           </div>
         </div>
       </div>
@@ -292,7 +312,7 @@ class ImageCard extends React.Component {
     return (
       <div className="card">
         <div className="content">
-          <img src={url} alt="Food Image" />
+          <img className="img-thumbnail" src={url} alt="Food Image" />
         </div>
       </div>
     );
