@@ -1,13 +1,13 @@
 {
-  "name": "another-react-demo",
+  "name": "HealthNuts",
   "version": "0.1.0",
-  "description": "More demos using React",
-  "author": "Info 343 Au16",
+  "description": "Health and Wellness",
+  "author": "Scott Kinder and Cory Brown",
   "private": true,
-  "homepage": "https://csb206.github.io/capstone2017/",
+  "homepage": "https://kinderst.github.io/capstone2017/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/csb206/capstone2017.git"
+    "url": "git+https://github.com/kinderst/capstone2017.git"
   },
   "devDependencies": {
     "react-scripts": "0.7.0"
