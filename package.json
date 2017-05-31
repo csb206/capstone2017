@@ -4,6 +4,7 @@
   "description": "More demos using React",
   "author": "Info 343 Au16",
   "private": true,
+  "homepage": "https://csb206.github.io/capstone2017/",
   "devDependencies": {
     "react-scripts": "0.7.0"
   },
