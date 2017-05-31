@@ -112,7 +112,7 @@ class GetImagePage extends React.Component {
               onUploadSuccess={this.handleUploadSuccess}
               onProgress={this.handleProgress}
             />
-            <p>Progress: {this.state.progress}</p>
+            <p id="progress">Progress: {this.state.progress}</p>
             <Progress completed={this.state.progress} />
             <button className="btn btn-success btn-lg" onClick={(e) => this.uploadPhoto(e)}>Upload Local</button>
           </div>

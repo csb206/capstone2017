@@ -1,10 +1,10 @@
 {
-	"calorie": 2000,
+	"calories": 2000,
 	"fat": 65,
 	"cholesterol": 300,
 	"sodium": 2400,
-	"carbohydrate": 300,
-	"fiber": 25,
+	"total_carbohydrate": 300,
+	"dietary_fiber": 25,
 	"protein": 50,
 	"vitamina": 100,
 	"vitaminc": 100,

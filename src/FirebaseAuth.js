@@ -1,6 +1,7 @@
 import { ref, firebaseAuth } from './FirebaseConstants';
 import { hashHistory } from 'react-router';
 import md5 from 'js-md5';
+import dailyValues from './dailyvalues.json';
 
 // export function auth (email, password) {
 //   return firebaseAuth().createUserWithEmailAndPassword(email, password)
@@ -166,7 +167,35 @@ export function getPhotoFoodItems(photoKey) {
 //A callback function for getting most recently uploaded photo
 export function getTopNNutrients(json, n) {
   //console.log(json);
-  return ["apples", "bagels", "charlie", "delta", "echo"];
+  var fields = json.hits[0].fields;
+  // console.log(fields);
+  // console.log(dailyValues);
+  var nutDvValues = {};
+  var fieldNames = ["nf_calcium_dv", "nf_calories", "nf_cholesterol", "nf_dietary_fiber", "nf_iron_dv", "nf_protein", "nf_sodium", "nf_total_carbohydrate", "nf_total_fat", "nf_vitamin_a_dv", "nf_vitamin_c_dv"];
+  //console.log(dailyValues[fieldNames[1].slice(3)]);
+  //console.log(fieldNames[0].slice(3));
+  fieldNames.map(function(fieldName) {
+    if (fieldName.includes("_dv")) {
+      nutDvValues["dv_" + fieldName] = fields[fieldName];
+    } else {
+      nutDvValues["dv_" + fieldName] = (fields[fieldName] / dailyValues[fieldNames[1].slice(3)]) * 100.0;
+    }
+  });
+  //console.log(nutDvValues);
+  var sortedDvValue = [];
+  for (var nute in nutDvValues) {
+    sortedDvValue.push([nute, nutDvValues[nute]]);
+  }
+  sortedDvValue.sort(function(a, b) {
+    return b[1] - a[1];
+  });
+  //console.log(sortedDvValue);
+  var topNutrients = [];
+  for (var i = 0; i < n; i++) {
+    topNutrients.push(sortedDvValue[i][0])
+  }
+  console.log(topNutrients);
+  return topNutrients;
 }
 
 //A callback function for getting most recently uploaded photo

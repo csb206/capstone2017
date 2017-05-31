@@ -2,6 +2,8 @@ import React from 'react';
 import { firebaseAuth, ref } from './FirebaseConstants';
 import { Link, hashHistory } from 'react-router';
 import { getTopNNutrients } from './FirebaseAuth';
+import { FoodRow } from './SaveFood.js';
+import { nutixAppId, nutixAppKey } from './FirebaseConstants';
 
 
 class NutritionHistoryPage extends React.Component {
@@ -27,7 +29,7 @@ class NutritionHistoryPage extends React.Component {
     var url = event.currentTarget.src;
     var time = 0;
     time = event.currentTarget.name;
-    console.log(time);
+    //console.log(time);
     var changes = {url: url, time: time};
     this.setState(changes); //update state
   }
@@ -36,12 +38,9 @@ class NutritionHistoryPage extends React.Component {
     var numImgs = 0;
     var url = this.state.url;
     var time = this.state.time;
-    console.log("IMPORTANT:");
-    console.log(url);
-
     return (
       <div>
-          <h1>Nutritional History</h1>
+          <h2 className="text-center">Nutritional History</h2>
           {url.length > 0 &&
             <CurrentPhoto url={url} time={time} />
           }
@@ -62,11 +61,9 @@ class CurrentPhoto extends React.Component {
     };
   }
 
-  /*
   componentDidMount() {
     var thisComponent = this;
     var url = this.props.url; //shortcut
-    console.log(url);
     var user = firebaseAuth().currentUser;
     //.equalTo(this.state.time)
     if (user && url.length > 0) {
@@ -76,20 +73,26 @@ class CurrentPhoto extends React.Component {
         var photos = snapshot.val();
         for (var key in photos) {
           var foodItems = photos[key]["fooditems"];
-          for (var i = 0; i < foodItems.length; i++) {
-            var foodItem = foodItems[i];
-            fetch('https://api.nutritionix.com/v1_1/search/' + foodItem + '?results=0:1&cal_min=0&cal_max=800&fields=item_name,nf_calories,nf_total_fat,nf_cholesterol,nf_sodium,nf_total_carbohydrate,nf_dietary_fiber,nf_protein,nf_vitamin_a_dv,nf_vitamin_c_dv,nf_calcium_dv,nf_iron_dv,nf_potassium&appId=4f560b3d&appKey=24dcbf7f28f68705cac990d70292d901') 
+          var changes = {
+            fooditems: {},
+            url: url
+          };
+          foodItems.map(function(foodItem) {
+          //for (var i = 0; i < foodItems.length; i++) {
+            //var foodItem = foodItems[i];
+            fetch('https://api.nutritionix.com/v1_1/search/' + foodItem + '?results=0:1&cal_min=0&cal_max=800&fields=item_name,nf_calories,nf_total_fat,nf_cholesterol,nf_sodium,nf_total_carbohydrate,nf_dietary_fiber,nf_protein,nf_vitamin_a_dv,nf_vitamin_c_dv,nf_calcium_dv,nf_iron_dv,nf_potassium&appId=' + nutixAppId + '&appKey=' + nutixAppKey) 
               .then(function(response) {
                 return response.json();
               }).then(function(json) {
                 //console.log('parsed json', json);
-                var changes = thisComponent.state;
-                //var topNutrients = thisComponent.getTopNutrients(json);
-                var topNutrients = ["vitamin a", "vitamin c", "iron", "fiber", "calcium"];
+                var topNutrients = getTopNNutrients(json, 5);
+                //var topNutrients = ["vitamin a", "vitamin c", "iron", "fiber", "calcium"];
+                // console.log("FOODITEM:");
+                // console.log(foodItem);
                 changes["fooditems"][foodItem] = topNutrients;
                 thisComponent.setState(changes);
-                //console.log("CHANGES STATE:");
-                //console.log(thisComponent.state);
+                // console.log("CHANGES STATE:");
+                // console.log(thisComponent.state);
               }).catch(function(ex) {
                 console.log('parsing failed', ex)
               });
@@ -98,12 +101,12 @@ class CurrentPhoto extends React.Component {
             // var changes = thisComponent.state;
             // changes["fooditems"][foodItems[i]] = {test: "test"};
             // thisComponent.setState(changes);
-          }
+          //}
+          });
         }
       });
     }
   }
-  */
 
   /*
   componentWillReceiveProps() {
@@ -153,20 +156,9 @@ class CurrentPhoto extends React.Component {
   */
 
   componentWillUpdate(nextProps, nextState) {
-    console.log("NEXT PROPS");
-    console.log(nextProps);
-    /*
-    console.log("next state");
-    console.log(nextState);
-    */
     var thisComponent = this;
     var url = nextProps.url; //shortcut
-    console.log("compare");
-    console.log(url);
-    console.log(this.state.url);
     if (url !== this.state.url) {
-      this.setState({url: url});
-      /*
       var user = firebaseAuth().currentUser;
       //.equalTo(this.state.time)
       if (user && url.length > 0) {
@@ -176,21 +168,23 @@ class CurrentPhoto extends React.Component {
           var photos = snapshot.val();
           for (var key in photos) {
             var foodItems = photos[key]["fooditems"];
-            for (var i = 0; i < foodItems.length; i++) {
-              var foodItem = foodItems[i];
-              fetch('https://api.nutritionix.com/v1_1/search/' + foodItem + '?results=0:1&cal_min=0&cal_max=800&fields=item_name,nf_calories,nf_total_fat,nf_cholesterol,nf_sodium,nf_total_carbohydrate,nf_dietary_fiber,nf_protein,nf_vitamin_a_dv,nf_vitamin_c_dv,nf_calcium_dv,nf_iron_dv,nf_potassium&appId=4f560b3d&appKey=24dcbf7f28f68705cac990d70292d901') 
+            var changes = {
+              fooditems: {},
+              url: url
+            };
+            foodItems.map(function(foodItem) {
+            //for (var i = 0; i < foodItems.length; i++) {
+              //var foodItem = foodItems[i];
+              fetch('https://api.nutritionix.com/v1_1/search/' + foodItem + '?results=0:1&cal_min=0&cal_max=800&fields=item_name,nf_calories,nf_total_fat,nf_cholesterol,nf_sodium,nf_total_carbohydrate,nf_dietary_fiber,nf_protein,nf_vitamin_a_dv,nf_vitamin_c_dv,nf_calcium_dv,nf_iron_dv,nf_potassium&appId=' + nutixAppId + '&appKey=' + nutixAppKey) 
                 .then(function(response) {
                   return response.json();
                 }).then(function(json) {
                   //console.log('parsed json', json);
-                  var changes = {
-                    fooditems: {},
-                    url: ""
-                  };
                   var topNutrients = getTopNNutrients(json, 5);
                   //var topNutrients = ["vitamin a", "vitamin c", "iron", "fiber", "calcium"];
+                  // console.log("FOODITEM:");
+                  // console.log(foodItem);
                   changes["fooditems"][foodItem] = topNutrients;
-                  changes["url"] = url;
                   thisComponent.setState(changes);
                   // console.log("CHANGES STATE:");
                   // console.log(thisComponent.state);
@@ -202,20 +196,35 @@ class CurrentPhoto extends React.Component {
               // var changes = thisComponent.state;
               // changes["fooditems"][foodItems[i]] = {test: "test"};
               // thisComponent.setState(changes);
-            }
+            //}
+            });
           }
         });
       }
-      */
     }
   }
 
   render() {
     var url = this.props.url; //shortcut
-    // console.log("STATE:");
-    // console.log(this.state);
+    /*
+    console.log("STATE:");
+    console.log(this.state);
     var time = this.props.time;
     var isAddNew = this.props.addnew;
+    */
+    var prevState = this.state;
+    var foodItems = this.state.fooditems;
+    var keys = [];
+    for (var k in foodItems) {
+      keys.push(k);
+    }
+    var foodRows = keys.map(function(key) {
+      var foodItem = key;
+      return (
+        <FoodRow key={foodItem} item={foodItem} topnutrients={foodItems[foodItem]} />
+      );
+    })
+
     //console.log(this.props.changeCallback);
     return (
       <div className="row">
@@ -223,7 +232,7 @@ class CurrentPhoto extends React.Component {
           <img className="img-thumbnail" src={this.state.url} alt="Current Photo" />
         </div>
         <div className="col-lg-8 col-sm-6 col-xs-6">
-          <p>test</p>
+          {foodRows}
         </div>
       </div>
     );

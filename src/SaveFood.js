@@ -3,7 +3,7 @@ import { uploadPhoto, getTopNNutrients } from './FirebaseAuth';
 import { RecentPhotoHistory } from './NutritionHistory.js';
 import { GoalsOverview } from './GoalsChallenges.js';
 import { Link, hashHistory } from 'react-router';
-import dailyValues from './dailyvalues.json';
+import { nutixAppId, nutixAppKey } from './FirebaseConstants';
 
 class SavePage extends React.Component {
   constructor(props){
@@ -46,7 +46,7 @@ class SavePage extends React.Component {
     }
     uploadPhoto(this.state.url, foodItems);
     foodItems.map(function(foodItem) {
-      fetch('https://api.nutritionix.com/v1_1/search/' + foodItem + '?results=0:1&cal_min=0&cal_max=800&fields=item_name,nf_calories,nf_total_fat,nf_cholesterol,nf_sodium,nf_total_carbohydrate,nf_dietary_fiber,nf_protein,nf_vitamin_a_dv,nf_vitamin_c_dv,nf_calcium_dv,nf_iron_dv,nf_potassium&appId=4f560b3d&appKey=24dcbf7f28f68705cac990d70292d901') 
+      fetch('https://api.nutritionix.com/v1_1/search/' + foodItem + '?results=0:1&cal_min=0&cal_max=800&fields=item_name,nf_calories,nf_total_fat,nf_cholesterol,nf_sodium,nf_total_carbohydrate,nf_dietary_fiber,nf_protein,nf_vitamin_a_dv,nf_vitamin_c_dv,nf_calcium_dv,nf_iron_dv,nf_potassium&appId=' + nutixAppId + '&appKey=' + nutixAppKey) 
         .then(function(response) {
           return response.json();
         }).then(function(json) {
@@ -56,8 +56,8 @@ class SavePage extends React.Component {
           var topNutrients = getTopNNutrients(json, 5);
           changes["foodnutrients"][foodItem] = topNutrients;
           thisComponent.setState(changes);
-          //console.log("CHANGES STATE:");
-          //console.log(thisComponent.state);
+          // console.log("CHANGES STATE:");
+          // console.log(thisComponent.state);
         }).catch(function(ex) {
           console.log('parsing failed', ex)
         });
@@ -72,8 +72,10 @@ class SavePage extends React.Component {
   }
 
   render() {
-    //console.log("STATE");
-    //console.log(this.state);
+    console.log("STATE");
+    console.log(this.state);
+    var photoUrl = this.props.location.state.state["url"];
+    /*
     var prevState = this.props.location.state.state;
     var keys = [];
     for (var k in prevState["fooditems"]) {
@@ -87,7 +89,19 @@ class SavePage extends React.Component {
         );
       }
     })
-    var photoUrl = this.props.location.state.state["url"];
+    */
+    var keys = [];
+    for (var k in this.state.foodnutrients) {
+      keys.push(k);
+    }
+    var thisComponent = this;
+    var foodRows = keys.map(function(key) {
+      var foodItem = key;
+      var nutrients = thisComponent.state.foodnutrients[foodItem];
+      return (
+        <FoodRow key={foodItem} item={foodItem} topnutrients={nutrients} />
+      );
+    })
     /*
     var foodItems = this.state.foodItems;
     var keys = [];
@@ -143,7 +157,8 @@ class FoodRow extends React.Component {
     //old nute info link
     //http://www.gmaonline.org/file-manager/images/healthandexercise/140_basic4%2B2.jpg
     //<img className="nutrientinfo" src="https://maxcdn.icons8.com/wp-content/uploads/2014/08/energy_calorie-1281.png" alt="nutrients" />
-    var topNutrients = ["vitamin a", "calorie", "protein", "fat", "calcium"];
+    //var topNutrients = ["vitamin a", "calorie", "protein", "fat", "calcium"];
+    var topNutrients = this.props.topnutrients;
     return (
       <div className="row food-row">
         <div className="col-lg-4 col-sm-5 col-xs-6">
@@ -162,3 +177,5 @@ class FoodRow extends React.Component {
 }
 
 export default SavePage;
+
+export { FoodRow };

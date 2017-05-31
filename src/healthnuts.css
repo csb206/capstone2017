@@ -6,9 +6,16 @@ html {
   box-sizing: inherit; }
 
 header.well {
-  background-color: #42971d;
+  background-color: #39B54A;
   color: white;
 }
+
+header.well span {
+  padding-right: 1em;
+  font-size: 16pt;
+}
+
+
 
 #title {
   font-size: 26px;
@@ -22,8 +29,10 @@ header.well {
 
 nav {
   margin-bottom: 2em;
-  background-color: #ddd;
+  background-color: #009444;
   padding: 1em;
+  padding-left: 2em;
+  border-radius: 25px;
 }
 
 nav h2 {
@@ -34,11 +43,20 @@ nav h2 {
 nav a {
   /* force pointer for non-links */
   cursor: pointer; 
-  color: #1c7000;
+  color: #fff;
 }
 
 nav ul li {
   margin-top: 10px;
+  padding-bottom: 1em;
+}
+
+a.activeLink {
+  background-color: #39B54A;
+}
+
+a:hover, a:focus, a.activeLink:hover {
+  color: white;
 }
 
 #chartdiv {
@@ -63,6 +81,12 @@ nav ul li {
 
 .nutrientname {
   float: left;
+}
+
+.activeLink {
+  background-color:#eee;
+  padding: .25em 1em;
+  border: 1px solid #ddd;
 }
 */
 
@@ -136,6 +160,10 @@ footer {
   text-align:right;
 }
 
+footer small {
+  font-size: 50%;
+}
+
 .card-container-slim .card {
   flex-basis: 100%;
 }
@@ -145,8 +173,6 @@ footer {
   margin-bottom: 2em;
 }
 
-.activeLink {
-  background-color:#eee;
-  padding: .25em 1em;
-  border: 1px solid #ddd;
+#progress {
+  padding-top: 2em;
 }

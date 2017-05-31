@@ -4,7 +4,7 @@ class GoalsPage extends React.Component {
   render() {
     return (
       <div>
-          <h2>Goals And Challenges</h2>
+          <h2 className="text-center">Goals And Challenges</h2>
           <GoalsOverview />
       </div>
     );
