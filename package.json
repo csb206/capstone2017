@@ -5,6 +5,10 @@
   "author": "Info 343 Au16",
   "private": true,
   "homepage": "https://csb206.github.io/capstone2017/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csb206/capstone2017.git"
+  },
   "devDependencies": {
     "react-scripts": "0.7.0"
   },
@@ -20,6 +24,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }
