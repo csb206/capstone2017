@@ -92,14 +92,49 @@ See documentation here: https://facebook.github.io/react/
 React gets most of it's power from the fact that it can efficiently update and render views on the fly. Another great plus is the fact that we can create components to create reusable structures that are used throughout the site. We can use many modules that make react even more powerful, simplifying a lot of common problems. Without going too much into the nitty gritty about how react works, all that matters is that it is the underlying framework for our js code.
 
 ## 6. Clarifai
-See documentation here: https://www.clarifai.com/
+See API documentation here: https://www.clarifai.com/
 
 We use Clarifai's food image model to detect food items in a photo. It's actually pretty simple, here is an example of a call to the API:
 
 ```javascript
-var s = "JavaScript syntax highlighting";
-alert(s);
+var app = new Clarifai.App(appId, appKey);
+ app.models.predict(foodModel, photoUrl).then(
+   function(response) {
+     console.log(response);
+     var concepts = response["outputs"][0]["data"]["concepts"];
+     thisComponent.setState({
+       url: photoUrl,
+       concepts: concepts
+     })
+   },
+   function(err) {
+     console.error(err);
+   }
+ );
 ```
+
+This function will set the state of the component to be of the food items, or concepts, as a result of a request to Clarifai's food model. From this list, you get both food items and the probability it thinks that it is there.
+
+## 7. Nutritionix
+See API documentation here: https://developer.nutritionix.com/docs/v1_1
+
+After we get the food items from Clarifai, we now want to get the nutrient profile of the foods. This would be things like fats, proteins, sodium, fiber, vitamin a, etc. However, this API will return both specific food items (ie. banana), and get correct results for things like that, but "burrito" might get the first burrito food item it knows, perhaps a brand name burrito and the nutrients in that. So when it gets brand names it is off, but not by much. Also, we don't consider proportions, so this is not a big issue.
+
+An example of a call to the nutritionix api is here:
+
+```javascript
+fetch('https://api.nutritionix.com/v1_1/search/' + foodItem + '?results=0:1&cal_min=0&cal_max=800&fields=item_name,nf_calories,nf_total_fat,nf_cholesterol,nf_sodium,nf_total_carbohydrate,nf_dietary_fiber,nf_protein,nf_vitamin_a_dv,nf_vitamin_c_dv,nf_calcium_dv,nf_iron_dv,nf_potassium&appId=' + nutixAppId + '&appKey=' + nutixAppKey) 
+        .then(function(response) {
+          return response.json();
+        }).then(function(json) {
+          console.log('parsed json', json);
+          //nutrients are contained within json
+        }).catch(function(ex) {
+          console.log('parsing failed', ex)
+        });
+```
+
+This code block will log the json returned by nutritionix, which will include nutrients for the given foodItem.
 
 ## 8. Stack
 Our stack is one that is not really commonly defined but technically it would be: FERN.
