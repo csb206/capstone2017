@@ -18,7 +18,7 @@ Instead, you can see a demo of the current version of this product at: https://y
 9. Contact Information
 
 ## 1. Overview
-(Cory do overview of project here)
+HealthNuts is a mobile friendly web app providing a unique approach to nutrition tracking. Using Clarifai, an established machine vision company, HealthNuts allows people to simply take a picture of the foods they eat to record and display the nutrients they receive. This avoids the time and effort required for tracking this information by hand and creates a fun and unique experience to help people reach their nutritional goals.
 
 ## 2. Necessary Technology Needs
 To complete this project, we need the following things:
@@ -156,5 +156,5 @@ project, we really only need users, photos, and some information about the
 photos users upload, and a bit more but not much.
 
 ## 9. Contact Information
-Cory Brown: (Cory Email)
+Cory Brown: csb206@uw.edu
 Scott Kinder: kinders@uw.edu
