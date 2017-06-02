@@ -5,7 +5,7 @@ Welcome to the HealthNuts Project Repository.
 
 This website is not deployed on the web due to possible security issues and no budget to pay for API plans.
 Instead, you can see a demo of the current version of this product at:
-youtube.com
+(youtube video)
 
 ## List of Contents
 1. Overview
@@ -66,7 +66,40 @@ To accomodate our project needs, we chose the following resources:
    Nutritionix is a relatively simple API that allows you to send it a query of a food item, and it returns like-name based results and some nutrient values. We are considering changing this, but for now it works relatively well, but there are limitations.
 
 ## 4. Firebase
-Firebase is
+Firebase is a product of Google.
+
+See documentation here: https://firebase.google.com/
+
+When we use Firebase, we are really only accessing three different parts of it, but there are more. The three we use are: 
+
+1. Authentication
+
+   This part of Firebase manages users, including email, usernames, and passwords. It also allows for you to send confirmation emails, and handles secure password managing. A lot of calls to this part of firebase come in the Login/Logout components, and whenever user information needs to be queried.
+
+2. Database
+
+   The Database is essentially a NoSQL database that looks like a big json file. We can query that json file to get non-authentication information about users, such as their photos they upload (URL's), and information about those photos.
+   
+3. Storage
+
+   Storage takes care of all the photos users upload of their food. The only time we really access this part in code is the GetImage page, as we upload the photo, it creates a public URL, then we save that URL to the database.
+   
+## 5. React
+React is a product of Facebook.
+
+See documentation here: https://facebook.github.io/react/
+
+React gets most of it's power from the fact that it can efficiently update and render views on the fly. Another great plus is the fact that we can create components to create reusable structures that are used throughout the site. We can use many modules that make react even more powerful, simplifying a lot of common problems. Without going too much into the nitty gritty about how react works, all that matters is that it is the underlying framework for our js code.
+
+## 6. Clarifai
+See documentation here: https://www.clarifai.com/
+
+We use Clarifai's food image model to detect food items in a photo. It's actually pretty simple, here is an example of a call to the API:
+
+```javascript
+var s = "JavaScript syntax highlighting";
+alert(s);
+```
 
 ## 8. Stack
 Our stack is one that is not really commonly defined but technically it would be: FERN.
