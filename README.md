@@ -1,4 +1,4 @@
-#Health Nuts
+# Health Nuts
 *envision nutrition*
 
 Welcome to the HealthNuts Project Repository.
@@ -7,17 +7,17 @@ This website is not deployed on the web due to possible security issues and no b
 Instead, you can see a demo of the current version of this product at:
 youtube.com
 
-##List of Contents
+## List of Contents
 1. Overview
 2. Necessary Technology Needs
 3. Current Resources to Meet Those Needs
 4. 
 9. Stack
 
-##1. Overview
+## 1. Overview
 (Cory do overview of project here)
 
-##2. Necessary Technology Needs
+## 2. Necessary Technology Needs
 To complete this project, we need the following things:
 1. A way to deploy the application
 
