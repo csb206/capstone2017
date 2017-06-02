@@ -4,8 +4,7 @@
 Welcome to the HealthNuts Project Repository.
 
 This website is not deployed on the web due to possible security issues and no budget to pay for API plans.
-Instead, you can see a demo of the current version of this product at:
-(youtube video)
+Instead, you can see a demo of the current version of this product at: https://youtu.be/GVQ9Hy2ZBCw
 
 ## List of Contents
 1. Overview
