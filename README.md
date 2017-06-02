@@ -155,3 +155,7 @@ as it caches components which are the rendered dynamically to the page. We do
 not need to have a complicated, highly structured backend to accompolish this
 project, we really only need users, photos, and some information about the
 photos users upload, and a bit more but not much.
+
+## 9. Contact Information
+Cory Brown: (Cory Email)
+Scott Kinder: kinders@uw.edu
